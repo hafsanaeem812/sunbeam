@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Travel — Plan your trip</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============================= HEADER ============================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">✈</span>
+      <span class="brand-word">AI&nbsp;TRAVEL</span>
+    </div>
+    <div class="topbar-meta" id="topbar-meta" aria-hidden="true"></div>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- ============================= PLANNER VIEW ============================= -->
+  <section id="planner-view" class="view view--active">
+
+    <div class="hero">
+      <p class="hero-eyebrow">GATE&nbsp;1 &middot; TRIP PLANNING</p>
+      <h1 class="hero-title">Plan your trip.<br>We'll handle the details.</h1>
+      <p class="hero-sub">
+        Tell us where you're headed, your dates, and your budget — we'll build a realistic,
+        day-by-day itinerary with flights, stays, food, and backup plans tailored to your vibe.
+      </p>
+    </div>
+
+    <form id="trip-form" class="ticket-card form-card" novalidate>
+
+      <div class="ticket-row ticket-row--two">
+        <div class="field">
+          <label for="origin">Starting location</label>
+          <input type="text" id="origin" name="origin" placeholder="e.g. Karachi, Pakistan" required autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="destination">Destination</label>
+          <input type="text" id="destination" name="destination" placeholder="e.g. Istanbul, Turkey" required autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="perforation" aria-hidden="true"></div>
+
+      <div class="ticket-row ticket-row--two">
+        <div class="field">
+          <label for="start_date">Departure date</label>
+          <input type="date" id="start_date" name="start_date" required />
+        </div>
+        <div class="field">
+          <label for="end_date">Return date</label>
+          <input type="date" id="end_date" name="end_date" required />
+        </div>
+      </div>
+
+      <div class="perforation" aria-hidden="true"></div>
+
+      <div class="ticket-row ticket-row--three">
+        <div class="field">
+          <label for="budget">Total budget</label>
+          <input type="number" id="budget" name="budget" min="1" step="1" placeholder="2000" required />
+        </div>
+        <div class="field">
+          <label for="currency">Currency</label>
+          <select id="currency" name="currency">
+            <option value="USD">USD — US Dollar</option>
+            <option value="EUR">EUR — Euro</option>
+            <option value="GBP">GBP — British Pound</option>
+            <option value="PKR">PKR — Pakistani Rupee</option>
+            <option value="AED">AED — UAE Dirham</option>
+            <option value="INR">INR — Indian Rupee</option>
+            <option value="CAD">CAD — Canadian Dollar</option>
+            <option value="AUD">AUD — Australian Dollar</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="travelers">Travelers</label>
+          <input type="number" id="travelers" name="travelers" min="1" max="20" step="1" value="1" required />
+        </div>
+      </div>
+
+      <div class="perforation" aria-hidden="true"></div>
+
+      <div class="field field--full">
+        <label id="vibe-label">Travel vibe <span class="field-hint">(choose one or more)</span></label>
+        <div class="vibe-grid" role="group" aria-labelledby="vibe-label">
+          <button type="button" class="vibe-chip" data-vibe="Adventure"><span>🧗</span>Adventure</button>
+          <button type="button" class="vibe-chip" data-vibe="Food"><span>🍜</span>Food</button>
+          <button type="button" class="vibe-chip" data-vibe="Relaxing"><span>🌴</span>Relaxing</button>
+          <button type="button" class="vibe-chip" data-vibe="Culture"><span>🏛</span>Culture</button>
+          <button type="button" class="vibe-chip" data-vibe="Nature"><span>🌿</span>Nature</button>
+          <button type="button" class="vibe-chip" data-vibe="Shopping"><span>🛍</span>Shopping</button>
+          <button type="button" class="vibe-chip" data-vibe="Nightlife"><span>🌙</span>Nightlife</button>
+          <button type="button" class="vibe-chip" data-vibe="Luxury"><span>💎</span>Luxury</button>
+          <button type="button" class="vibe-chip" data-vibe="Budget"><span>🪙</span>Budget</button>
+          <button type="button" class="vibe-chip" data-vibe="Family-friendly"><span>👨‍👩‍👧</span>Family-friendly</button>
+        </div>
+      </div>
+
+      <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
+
+      <button type="submit" class="build-btn">
+        <span>BUILD MY TRIP</span>
+        <span class="build-btn-arrow">→</span>
+      </button>
+    </form>
+  </section>
+
+  <!-- ============================= LOADING VIEW ============================= -->
+  <section id="loading-view" class="view">
+    <div class="loading-wrap">
+      <div class="loading-plane" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="72" height="72">
+          <path fill="currentColor" d="M50 2 L58 30 L92 42 L58 46 L58 66 L72 78 L58 76 L52 92 L48 92 L42 76 L28 78 L42 66 L42 46 L8 42 L42 30 Z"/>
+        </svg>
+      </div>
+      <p class="loading-headline">Planning your trip…</p>
+      <p class="loading-message" id="loading-message">Checking your preferences…</p>
+      <div class="loading-track"><div class="loading-track-fill" id="loading-fill"></div></div>
+    </div>
+  </section>
+
+  <!-- ============================= ERROR VIEW ============================= -->
+  <section id="error-view" class="view">
+    <div class="error-card">
+      <p class="error-eyebrow">FLIGHT DELAYED</p>
+      <h2>We hit some turbulence</h2>
+      <p id="error-message">Something went wrong while planning your trip.</p>
+      <button type="button" class="build-btn" id="error-retry">TRY AGAIN</button>
+    </div>
+  </section>
+
+  <!-- ============================= RESULTS VIEW ============================= -->
+  <section id="results-view" class="view">
+    <div id="results-content"></div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>AI Travel — estimates are generated for planning purposes and should be confirmed before booking.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
